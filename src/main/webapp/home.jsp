@@ -12,7 +12,6 @@
 </head>
 <body>
 <h1>这是首页！</h1>
-
 <a href="${pageContext.request.contextPath}/LoginUIServlet">登陆</a>
 <a href="${pageContext.request.contextPath}/RegisterUIServlet">注册</a>
 </body>

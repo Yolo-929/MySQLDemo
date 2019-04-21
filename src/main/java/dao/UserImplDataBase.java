@@ -3,7 +3,7 @@ package dao;
 import model.User;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
-import util.Utils2DB;
+import util.DBUtils;
 
 import java.sql.SQLException;
 import java.util.Date;
@@ -11,14 +11,14 @@ import java.util.Date;
 public class UserImplDataBase implements  UserDao {
     public User find(String username, String password) {
 
-        QueryRunner queryRunner = new QueryRunner(Utils2DB.getDataSource());
+        QueryRunner queryRunner = new QueryRunner(DBUtils.getDataSource());
 
         String sql = "SELECT * FROM user WHERE username=? AND password=?";
 
         try {
             User user = (User) queryRunner.query(sql, new BeanHandler(User.class), new Object[]{username, password});
 
-            return user == null ? null : user;
+            return user;
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException("登陆失败了！");
@@ -27,7 +27,7 @@ public class UserImplDataBase implements  UserDao {
 
     public void register(User user) {
 
-        QueryRunner queryRunner = new QueryRunner(Utils2DB.getDataSource());
+        QueryRunner queryRunner = new QueryRunner(DBUtils.getDataSource());
 
         String sql = "INSERT INTO user (id, username, password, email,birthday) VALUES (?,?,?,?,?);";
 
